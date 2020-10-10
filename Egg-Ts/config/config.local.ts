@@ -11,5 +11,11 @@ export default () => {
         port: 3306,
         database: 'lkonx',
     };
+    // 关闭CSRF安全校验
+    config.security = {
+        csrf: {
+            enable: false
+        }
+    }
     return config;
 };
