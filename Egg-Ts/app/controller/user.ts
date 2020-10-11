@@ -15,8 +15,11 @@ export default class UserController extends Controller {
         const {ctx} = this;
 
         try {
-            this.validateUserInfo()
-            ctx.success({})
+            // 1.校验数据和验证码
+            this.validateUserInfo();
+            // 2.将校验通过的数据保存到数据库中
+            const data = await ctx.service.user.createUser(ctx.request.body);
+            ctx.success(data)
         } catch (e) {
             if (e.errors) {
                 ctx.error(400, e.errors)

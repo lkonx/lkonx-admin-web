@@ -1,8 +1,13 @@
 import ImageCode from '../util/imageCode';
 import EmailCode from '../util/emailCode';
 import SmsCode from '../util/smsCode';
+import Encrypto from '../util/encrypto';
 
 module.exports = {
+    // 加密
+    encryptText(text) {
+        return Encrypto.encryptText(this, text);
+    },
     // 创建验证码
     createImageCode() {
         return ImageCode.createImageCode(this.ctx);
@@ -20,10 +25,10 @@ module.exports = {
         EmailCode.verifyEmailCode(this.ctx, clientCode);
     },
     // 发送手机验证码
-    async sendSmsCode(to:string){
+    async sendSmsCode(to: string) {
         return await SmsCode.sendSmsCode(this.ctx, to);
     },
-    verifySmsCode(clientCode){
+    verifySmsCode(clientCode) {
         SmsCode.verifySmsCode(this.ctx, clientCode);
     }
 };

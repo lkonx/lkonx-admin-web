@@ -18,6 +18,7 @@ export default {
             code: c.text,
             expire: Date.now() + 60 * 1000 // 验证码1分钟之后过期
         };
+        console.log(c.text)
         // 将验证码发送给客户端
         return c.data;
     },

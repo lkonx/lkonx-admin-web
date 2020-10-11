@@ -10,6 +10,8 @@ export default () => {
         password: 'root',
         port: 3306,
         database: 'lkonx',
+        // 指定当前的时区
+        timezone: '+08:00'
     };  // 邮箱相关配置
     config.smtp = {
         host: "smtp.qq.com",
