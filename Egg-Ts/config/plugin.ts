@@ -7,9 +7,19 @@ const plugin: EggPlugin = {
         package: 'egg-sequelize-ts',
     },
     // 开启validate前端数据验证
-    validate : {
+    validate: {
         enable: true,
         package: 'egg-validate',
+    },
+    //开启Redis
+    sessionRedis: {
+        enable: true,
+        package: 'egg-session-redis',
+    },
+
+    redis: {
+        enable: true,
+        package: 'egg-redis',
     }
 };
 

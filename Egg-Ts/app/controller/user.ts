@@ -34,6 +34,8 @@ export default class UserController extends Controller {
         switch (registerType) {
             case RegisterTypeEnum.Norma:
                 ctx.validate(NormalUserRule, data)
+                // 校验验证码
+                ctx.helper.verifyImageCode(data.captcha)
                 break
             case RegisterTypeEnum.Email:
                 ctx.validate(EmailUserRule, data)
