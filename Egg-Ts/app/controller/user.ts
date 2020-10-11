@@ -44,6 +44,7 @@ export default class UserController extends Controller {
                 break
             case RegisterTypeEnum.Phone:
                 ctx.validate(PhoneUserRule, data)
+                ctx.helper.verifySmsCode(data.captcha);
                 break
             default:
                 throw new Error('注册类型不存在')

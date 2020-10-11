@@ -1,5 +1,6 @@
 import ImageCode from '../util/imageCode';
 import EmailCode from '../util/emailCode';
+import SmsCode from '../util/smsCode';
 
 module.exports = {
     // 创建验证码
@@ -18,4 +19,11 @@ module.exports = {
     verifyEmailCode(clientCode) {
         EmailCode.verifyEmailCode(this.ctx, clientCode);
     },
+    // 发送手机验证码
+    async sendSmsCode(to:string){
+        return await SmsCode.sendSmsCode(this.ctx, to);
+    },
+    verifySmsCode(clientCode){
+        SmsCode.verifySmsCode(this.ctx, clientCode);
+    }
 };

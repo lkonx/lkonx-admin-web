@@ -17,12 +17,17 @@ export default () => {
         user: '2983353313@qq.com', // 发送邮件的邮箱
         pass: `gayzukcrxcredhad`, // 邮箱对应的授权码
     };
+    // 短信相关配置
+    config.sms = {
+        accessKeyId: 'LTAI4GHcxJrqW3gi2rUxhurB',
+        secretAccessKey: 'Eq2EEg8NT9OWBVXraJdHrwvpP5sCjQ'
+    };
     // 关闭CSRF安全校验
     config.security = {
         csrf: {
             enable: false
         }
-    }
+    };
     // 设置Redis
     config.redis = {
         client: {
