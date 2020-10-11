@@ -5,6 +5,8 @@ export default (app: Application) => {
     router.get('/', controller.home.index);
     // 验证码生成
     router.get('/captcha', controller.util.imageCode);
+    // 邮箱验证码
+    router.get('/emailcode', controller.util.emailCode);
     // 注册
     router.post('/register', controller.user.create);
 };

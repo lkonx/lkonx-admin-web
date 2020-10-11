@@ -39,6 +39,8 @@ export default class UserController extends Controller {
                 break
             case RegisterTypeEnum.Email:
                 ctx.validate(EmailUserRule, data)
+                // 校验验证码
+                ctx.helper.verifyEmailCode(data.captcha)
                 break
             case RegisterTypeEnum.Phone:
                 ctx.validate(PhoneUserRule, data)

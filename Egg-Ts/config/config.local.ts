@@ -10,6 +10,12 @@ export default () => {
         password: 'root',
         port: 3306,
         database: 'lkonx',
+    };  // 邮箱相关配置
+    config.smtp = {
+        host: "smtp.qq.com",
+        port: 465,
+        user: '2983353313@qq.com', // 发送邮件的邮箱
+        pass: `gayzukcrxcredhad`, // 邮箱对应的授权码
     };
     // 关闭CSRF安全校验
     config.security = {
