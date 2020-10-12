@@ -24,6 +24,7 @@ export default {
     },
     verifyImageCode(ctx, clientCode) {
         // 取出服务端中保存的验证码和过期时间
+
         const serverCaptcha = ctx.session.captcha;
         let serverCode;
         let serverExpire;

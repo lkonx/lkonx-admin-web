@@ -16,7 +16,11 @@ const plugin: EggPlugin = {
         enable: true,
         package: 'egg-session-redis',
     },
-
+    //开启跨域
+    cors: {
+        enable: true,
+        package: 'egg-cors',
+    },
     redis: {
         enable: true,
         package: 'egg-redis',

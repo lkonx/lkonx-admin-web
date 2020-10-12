@@ -6,7 +6,12 @@ export default (appInfo: EggAppInfo) => {
     // override config from framework / plugin
     // use for cookie sign key, should change to your own and keep security
     config.keys = appInfo.name + '_1602251146645_8220';
-
+    //跨域配置
+    config.cors = {
+        origin: 'http://127.0.0.1:8080',
+        allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+        credentials: true,
+    };
     // add your egg config in here
     config.middleware = [];
 
