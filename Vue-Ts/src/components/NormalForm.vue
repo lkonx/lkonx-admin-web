@@ -5,7 +5,7 @@
                 <el-input v-model="registerData.username" prefix-icon="el-icon-user"></el-input>
             </el-form-item>
             <el-form-item label="" prop="password">
-                <el-input v-model="registerData.password" prefix-icon="el-icon-lock"></el-input>
+                <el-input type="password" v-model="registerData.password" prefix-icon="el-icon-lock"></el-input>
             </el-form-item>
             <el-form-item label="" prop="captcha">
                 <el-row>
@@ -16,7 +16,8 @@
                         <img src="http://127.0.0.1:7001/captcha"
                              ref="captchaImage"
                              style="width: 100%; height: 40px"
-                             @click="updateCaptcha(1)">
+                             @click="updateCaptcha(1)"
+                             alt="验证码">
                     </el-col>
                 </el-row>
             </el-form-item>
@@ -40,8 +41,7 @@
 <script lang='ts'>
     import {Vue, Component, Ref} from 'vue-property-decorator';
     import {ElForm} from 'element-ui/types/form';
-    import {registerUser} from '../api/index'
-    import da from "element-ui/src/locale/lang/da";
+    import {registerUser} from '@/api'
 
     @Component({
         name: 'NormalForm',
@@ -49,14 +49,14 @@
     })
     export default class NormalForm extends Vue {
 
-        registerData = {
+        private registerData = {
             username: '',
             password: '',
             captcha: '',
             registerType: 'normal',
             checked: true
         }
-        validateName = (rule: any, value: string, callback: any) => {
+        private validateName = (rule: any, value: string, callback: any) => {
             const reg = /^[A-Za-z0-9]{6,}$/;
             if (!value) {
                 callback(new Error('请填写用户名'));
@@ -68,7 +68,7 @@
                 callback();
             }
         };
-        validatePass = (rule: any, value: string, callback: any) => {
+        private validatePass = (rule: any, value: string, callback: any) => {
             const reg = /^(?:(?=.*[0-9].*)(?=.*[A-Za-z].*)(?=.*[,\.#%'\+\*\-:;^_`].*))[,\.#%'\+\*\-:;^_`0-9A-Za-z]{8,}$/;
             if (!value) {
                 callback(new Error('请填写密码'));
@@ -80,7 +80,7 @@
                 callback();
             }
         };
-        validateCaptcha = (rule: any, value: string, callback: any) => {
+        private validateCaptcha = (rule: any, value: string, callback: any) => {
             const reg = /^[A-Za-z0-9]{4}$/;
             if (!value) {
                 callback(new Error('请填写验证码'));
@@ -92,14 +92,14 @@
                 callback();
             }
         };
-        validateChecked = (rule: any, value: string, callback: any) => {
+        private validateChecked = (rule: any, value: string, callback: any) => {
             if (!value) {
                 callback(new Error('请阅读并同意用户协议'));
             } else {
                 callback();
             }
         };
-        registerRules = {
+        private registerRules = {
             username: [
                 {validator: this.validateName, trigger: 'blur'}
             ],
@@ -116,27 +116,36 @@
         @Ref() readonly captchaImage!: HTMLImageElement
 
         // 更新验证码图片
-        updateCaptcha() {
+        private updateCaptcha() {
             this.captchaImage.src = `http://127.0.0.1:7001/captcha?r=${Math.random()}`
         }
 
         @Ref() readonly form!: ElForm
 
-        onSubmit() {
+        private onSubmit() {
             this.form.validate((flag) => {
                 if (flag) {
                     registerUser(this.registerData)
-                        .then((data) => {
-                            console.log(data);
-                            (this as any).$message.success('注册成功');
+                        .then((data: any) => {
+                            if (data.code === 200) {
+                                this.$router.push('/login');
+                            } else {
+                                this.updateCaptcha();
+                                (this as any).$message.error(data.msg);
+                            }
                         })
                         .catch((e) => {
+                            this.updateCaptcha();
                             (this as any).$message.error(e);
                         })
                 } else {
                     (this as any).$message.error('数据格式不对');
                 }
             })
+        }
+
+        public resetForm() {
+            this.form.resetFields();
         }
     }
 </script>

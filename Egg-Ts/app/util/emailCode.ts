@@ -59,17 +59,14 @@ export default {
             serverExpire = serverCaptcha.expire;
         } catch (e) {
             // 注意点: 验证码无论验证成功还是失败, 都只能使用一次
-            ctx.session.email = null;
             throw new Error('请重新获取验证码');
         }
 
         if (Date.now() > serverExpire) {
             // 注意点: 验证码无论验证成功还是失败, 都只能使用一次
-            ctx.session.email = null;
             throw new Error('验证码已经过期');
         } else if (serverCode !== clientCode) {
             // 注意点: 验证码无论验证成功还是失败, 都只能使用一次
-            ctx.session.email = null;
             throw new Error('验证码不正确');
         }
         // 注意点: 验证码无论验证成功还是失败, 都只能使用一次
